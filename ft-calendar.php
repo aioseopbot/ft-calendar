@@ -164,5 +164,7 @@ if ( false === get_option( 'ft_cal_version' )
 	$ft_cal_options->do_ftcal_update();
 
 //add better localization here
+//and here
 
+//add_action();
 load_plugin_textdomain( 'ftcalendar', false, $ftcalendar_dir . '/languages/' );
