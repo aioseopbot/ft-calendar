@@ -163,4 +163,6 @@ if ( false === get_option( 'ft_cal_version' )
 	|| version_compare( get_option( 'ft_cal_version' ), FT_CAL_VERSION, '<' ) )
 	$ft_cal_options->do_ftcal_update();
 
+//add better localization here
+
 load_plugin_textdomain( 'ftcalendar', false, $ftcalendar_dir . '/languages/' );
