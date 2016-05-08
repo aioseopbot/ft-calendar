@@ -1,7 +1,7 @@
 <?php
 /**
  * @package FT_Calendar
- * @version 1.5
+ * @version 1.6a
  */
 /*
 Plugin Name: FullThrottle Calendar
