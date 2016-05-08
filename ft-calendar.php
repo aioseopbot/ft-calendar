@@ -2,6 +2,7 @@
 /**
  * @package FT_Calendar
  * @version 1.6
+ * @author Michael Torbert
  */
 /*
 Plugin Name: FullThrottle Calendar
@@ -10,6 +11,8 @@ Description: A feature rich calendar plugin for WordPress.
 Author: Michael Torbert, FullThrottle Development
 Version: 1.6a
 Author URI: http://semperfiwebdesign.com/
+Text Domain: ft-calendar
+Domain Path: /languages/
 */
 
 #### CONSTANTS ####
@@ -163,8 +166,9 @@ if ( false === get_option( 'ft_cal_version' )
 	|| version_compare( get_option( 'ft_cal_version' ), FT_CAL_VERSION, '<' ) )
 	$ft_cal_options->do_ftcal_update();
 
-//add better localization here
-//and here
+add_action( 'plugins_loaded', 'ftcal_load_textdomain' );
 
-//add_action();
-load_plugin_textdomain( 'ftcalendar', false, $ftcalendar_dir . '/languages/' );
+function ftcal_load_textdomain() {
+	load_plugin_textdomain( 'ft-calendar', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+
