@@ -182,6 +182,7 @@ add_action( 'plugins_loaded', 'ftcal_load_textdomain' );
 function ftcal_load_textdomain()
 			{
 				//let's see what it does here
-	load_plugin_textdomain( 'ft-calendar', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain('ft-calendar', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	return null;
 }
 
