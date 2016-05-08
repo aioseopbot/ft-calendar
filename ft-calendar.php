@@ -168,6 +168,17 @@ if ( false === get_option( 'ft_cal_version' )
 
 add_action( 'plugins_loaded', 'ftcal_load_textdomain' );
 
+ /**
+ *
+ * Loads the textdomain.
+ *
+ * This function loads the textdomain. Later if we have more for plugins_loaded
+ * we may change the function name.
+ *
+ * @since 1.6
+ * @link https://developer.wordpress.org/plugins/internationalization/localization/
+ *
+ */
 function ftcal_load_textdomain() {
 	load_plugin_textdomain( 'ft-calendar', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
