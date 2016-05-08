@@ -173,13 +173,15 @@ add_action( 'plugins_loaded', 'ftcal_load_textdomain' );
  * Loads the textdomain.
  *
  * This function loads the textdomain. Later if we have more for plugins_loaded
- * we may change the function name.
+ * we may change the function name to something reflecting that.
  *
  * @since 1.6
  * @link https://developer.wordpress.org/plugins/internationalization/localization/
  *
  */
-function ftcal_load_textdomain() {
+function ftcal_load_textdomain()
+			{
+				//let's see what it does here
 	load_plugin_textdomain( 'ft-calendar', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
