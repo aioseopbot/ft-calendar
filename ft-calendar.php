@@ -9,7 +9,7 @@ Plugin Name: FullThrottle Calendar
 Plugin URI: http://calendar-plugin.com/
 Description: A feature rich calendar plugin for WordPress.
 Author: Michael Torbert, FullThrottle Development
-Version: 1.6a
+Version: 1.6
 Author URI: http://semperfiwebdesign.com/
 Text Domain: ft-calendar
 Domain Path: /languages/

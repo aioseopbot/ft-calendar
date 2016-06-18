@@ -1,9 +1,10 @@
 === FT Calendar ===
 Contributors: hallsofmontezuma, fullthrottledevelopment
-Tags: calendar, dates, events, times, event manager, scheduling, recurring, recurring events, ec3, event, widget, shortcode, AJAX, sidebar, repeating, repeat, recur, custom, post, types
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=FTCalendar&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
+Tags: calendar, dates, events, times, event manager, scheduling, recurring, recurring events, event, widget, repeating
 Requires at least: 3.0
-Tested up to: 4.4
-Stable tag: 1.5
+Tested up to: 4.5
+Stable tag: 1.6
 
 A calendar plugin supporting multiple calendars, recurring events, and several different widgets / shortcodes. More info at http://calendar-plugin.com
 
