@@ -10,7 +10,7 @@
  * @since 0.3
  */
 
-if ( !class_exists( 'FT_Cal_Calendars' ) ) {
+if ( ! class_exists( 'FT_Cal_Calendars' ) ) {
 
 	/**
 	 * Calendar Class. Handles post types, taxonomies, meta callbacks
@@ -29,8 +29,8 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 			add_action( 'init', array( &$this, 'register_calendar_taxonomy' ) );
 			add_action( 'ftcalendar_add_form_fields', array( &$this, 'ftcalendar_taxonomy_add_form_fields' ) );
 			add_action( 'ftcalendar_edit_form_fields', array( &$this, 'ftcalendar_taxonomy_edit_form_fields' ), 10, 2 );
-			add_action( 'edited_ftcalendar', array( &$this, 'save_ftcal_meta_options'), 10, 2);
-			add_action( 'created_ftcalendar', array( &$this, 'save_ftcal_meta_options'), 10, 2);
+			add_action( 'edited_ftcalendar', array( &$this, 'save_ftcal_meta_options' ), 10, 2 );
+			add_action( 'created_ftcalendar', array( &$this, 'save_ftcal_meta_options' ), 10, 2 );
 			add_filter( 'manage_ftcalendar_sortable_columns', array( &$this, 'ftcalendar_taxonomy_add_column' ) );
 			add_action( 'admin_print_styles-edit-tags.php', array( &$this, 'enqueue_add_edit_taxonomy_css' ) );
 			add_action( 'admin_print_scripts-edit-tags.php', array( &$this, 'enqueue_add_edit_taxonomy_js' ) );
@@ -47,15 +47,15 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 			global $ft_cal_options;
 
 			$singular_label = $ft_cal_options->calendar_options['calendar_label_singular'];
-			$plural_label 	= $ft_cal_options->calendar_options['calendar_label_plural'];
+			$plural_label   = $ft_cal_options->calendar_options['calendar_label_plural'];
 
 			// Custom Taxonomies for calendars
 			$calendar_tax_args = array(
-				'label' => 'Calendars',
-				'hierarchical' => false,
-				'rewrite' => array( 'slug' => 'calendars', 'with_front' => false ),
+				'label'         => 'Calendars',
+				'hierarchical'  => false,
+				'rewrite'       => array( 'slug' => 'calendars', 'with_front' => false ),
 				'show_tagcloud' => false,
-				'show_ui' => true,
+				'show_ui'       => true,
 				/*
 				'capabilities' => array(
 					'manage_terms' => 'manage_ftcalendars',
@@ -64,22 +64,22 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 					'assign_terms' => 'edit_ftcalendars',
 				),
 				*/
-				'labels' => array(
-					'name' => ucfirst( $plural_label ),
-					'singular_name' => ucfirst( $singular_label ),
-					'search_items' => 'Search ' . ucfirst( $plural_label ),
-					'popular_items' => 'Popular ' . ucfirst( $plural_label ),
-					'all_items' => 'All ' . ucfirst( $plural_label ),
-					'parent_item' => 'Parent ' . ucfirst( $singular_label ),
-					'parent_item_colon' => 'Parent ' . ucfirst( $singular_label ) . ':',
-					'edit_item' => 'Edit ' . ucfirst( $singular_label ),
-					'update_item' => 'Update ' . ucfirst( $singular_label ),
-					'add_new_item' => 'Add New ' . ucfirst( $singular_label ),
-					'new_item_name' => 'New ' . ucfirst( $singular_label ) . ' Name',
+				'labels'        => array(
+					'name'                       => ucfirst( $plural_label ),
+					'singular_name'              => ucfirst( $singular_label ),
+					'search_items'               => 'Search ' . ucfirst( $plural_label ),
+					'popular_items'              => 'Popular ' . ucfirst( $plural_label ),
+					'all_items'                  => 'All ' . ucfirst( $plural_label ),
+					'parent_item'                => 'Parent ' . ucfirst( $singular_label ),
+					'parent_item_colon'          => 'Parent ' . ucfirst( $singular_label ) . ':',
+					'edit_item'                  => 'Edit ' . ucfirst( $singular_label ),
+					'update_item'                => 'Update ' . ucfirst( $singular_label ),
+					'add_new_item'               => 'Add New ' . ucfirst( $singular_label ),
+					'new_item_name'              => 'New ' . ucfirst( $singular_label ) . ' Name',
 					'separate_items_with_commas' => 'Separate ' . $plural_label . ' with commas',
-					'add_or_remove_items' => 'Add or remove ' . $singular_label,
-					'choose_from_most_used' => 'Choose from the most used ' . $plural_label
-				)
+					'add_or_remove_items'        => 'Add or remove ' . $singular_label,
+					'choose_from_most_used'      => 'Choose from the most used ' . $plural_label,
+				),
 			);
 
 			// Loop through all the post types we want calendars available to and register.
@@ -96,10 +96,10 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 		 */
 		function ftcalendar_taxonomy_add_form_fields() {
 			?>
-            <div class="form-field">
-            	<label for="ftcalendar-color"><?php _e( 'Calendar Label Color', 'ftcalendar' ); ?></label>
-                <?php echo $this->get_calendar_colors(); ?>
-            </div>
+			<div class="form-field">
+				<label for="ftcalendar-color"><?php _e( 'Calendar Label Color', 'ftcalendar' ); ?></label>
+				<?php echo $this->get_calendar_colors(); ?>
+			</div>
 			<?php
 		}
 
@@ -110,12 +110,12 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 		 */
 		function ftcalendar_taxonomy_edit_form_fields( $tag, $taxonomy ) {
 
-		    $ftcal_meta = get_option( $taxonomy . "_meta" );
+			$ftcal_meta = get_option( $taxonomy . "_meta" );
 
 			?>
 			<tr class="form-field">
-            <th valign="top" scope="row"><?php _e( 'Calendar Label Color', 'ftcalendar' ); ?></th>
-            <td><?php echo $this->get_calendar_colors( $ftcal_meta['ftcal-bg-color-' . $tag->term_id ] ); ?></td>
+				<th valign="top" scope="row"><?php _e( 'Calendar Label Color', 'ftcalendar' ); ?></th>
+				<td><?php echo $this->get_calendar_colors( $ftcal_meta[ 'ftcal-bg-color-' . $tag->term_id ] ); ?></td>
 			</tr>
 			<?php
 
@@ -135,11 +135,11 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 			$style = "background-color: #" . $color . "; border-color: #" . $color . ";";
 
 			$cc = '<div id="ftcalendar-color-picker">';
-			$cc .= '<input type="hidden" value="' . $color .'" id="ftcal-color" name="ftcal-color" />';
+			$cc .= '<input type="hidden" value="' . $color . '" id="ftcal-color" name="ftcal-color" />';
 			$cc .= "<div id='calendar-label-color' style='width: 175px; clear: both; " . $style . "'><div style='" . $style . "'>calendar</div></div>";
 			$cc .= "<ul>";
-			foreach ( (array)$full_colors as $bg_color => $border_color ) {
-				$cc .= '<li class="calcolor-li"><a class="calcolor-square" style="background-color: #' . $bg_color .'; border: 1px solid #' . $border_color . ';">&nbsp;</a></li>';
+			foreach ( (array) $full_colors as $bg_color => $border_color ) {
+				$cc .= '<li class="calcolor-li"><a class="calcolor-square" style="background-color: #' . $bg_color . '; border: 1px solid #' . $border_color . ';">&nbsp;</a></li>';
 			}
 			$cc .= "</ul>";
 			$cc .= '</div>';
@@ -152,9 +152,11 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 		 *
 		 * @since 0.3
 		 */
-		function save_ftcal_meta_options( $term_id, $taxonomy_id) {
+		function save_ftcal_meta_options( $term_id, $taxonomy_id ) {
 
-			if ( ! $term_id ) return;
+			if ( ! $term_id ) {
+				return;
+			}
 
 			$full_colors = $this->get_full_colors();
 
@@ -162,13 +164,14 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 
 			if ( isset( $_POST['ftcal-color'] ) ) {
 
-				if ( preg_match( '/rgb\((\d+), (\d+), (\d+)\)/', $_POST['ftcal-color'], $matches ) )
+				if ( preg_match( '/rgb\((\d+), (\d+), (\d+)\)/', $_POST['ftcal-color'], $matches ) ) {
 					$hex = $this->rgbToHex( $matches[1], $matches[2], $matches[3] );
-				else
+				} else {
 					$hex = ltrim( $_POST['ftcal-color'], '#' );
+				}
 
-				$meta_options['ftcal-bg-color-' . $term_id] = $hex;
-				$meta_options['ftcal-border-color-' . $term_id] = $full_colors[$hex];
+				$meta_options[ 'ftcal-bg-color-' . $term_id ]     = $hex;
+				$meta_options[ 'ftcal-border-color-' . $term_id ] = $full_colors[ $hex ];
 
 			}
 
@@ -183,53 +186,54 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 		 */
 		function get_full_colors() {
 			return apply_filters( 'ftc_full_colors', array(
-									'd96666' => 'cc3333',
-									'e67399' => 'dd4477',
-									'b373b3' => '994499',
-									'8c66d9' => '6633cc',
-									'668cb3' => '336699',
-									'668cd9' => '3366cc',
-									'59bfb3' => '22aa99',
+				'd96666' => 'cc3333',
+				'e67399' => 'dd4477',
+				'b373b3' => '994499',
+				'8c66d9' => '6633cc',
+				'668cb3' => '336699',
+				'668cd9' => '3366cc',
+				'59bfb3' => '22aa99',
 
-									'65ad89' => '329262',
-									'4cb052' => '109618',
-									'8cbf40' => '66aa00',
-									'bfbf4d' => 'aaaa11',
-									'e0c240' => 'd6ae00',
-									'f2a640' => 'ee8800',
-									'e6804d' => 'dd5511',
+				'65ad89' => '329262',
+				'4cb052' => '109618',
+				'8cbf40' => '66aa00',
+				'bfbf4d' => 'aaaa11',
+				'e0c240' => 'd6ae00',
+				'f2a640' => 'ee8800',
+				'e6804d' => 'dd5511',
 
-									'be9494' => 'a87070',
-									'a992a9' => '8c6d8c',
-									'8997a5' => '627487',
-									'94a2be' => '7083a8',
-									'85aaa5' => '5c8d87',
-									'a7a77d' => '898951',
-									'c4a883' => 'b08b59',
+				'be9494' => 'a87070',
+				'a992a9' => '8c6d8c',
+				'8997a5' => '627487',
+				'94a2be' => '7083a8',
+				'85aaa5' => '5c8d87',
+				'a7a77d' => '898951',
+				'c4a883' => 'b08b59',
 
-									'c7561e' => '9f3501',
-									'b5515d' => '8a2d38',
-									'c244ab' => '962181',
-									'603f99' => '402175',
-									'536ca6' => '30487e',
-									'3640ad' => '182186',
-									'3c995b' => '1f753c',
+				'c7561e' => '9f3501',
+				'b5515d' => '8a2d38',
+				'c244ab' => '962181',
+				'603f99' => '402175',
+				'536ca6' => '30487e',
+				'3640ad' => '182186',
+				'3c995b' => '1f753c',
 
-									'5ca632' => '3d8215',
-									'7ec225' => '5a9a08',
-									'a7b828' => '81910b',
-									'cf9911' => '9d7000',
-									'd47f1e' => 'aa5a00',
-									'b56414' => '8d4500',
-									'914d14' => '743500',
+				'5ca632' => '3d8215',
+				'7ec225' => '5a9a08',
+				'a7b828' => '81910b',
+				'cf9911' => '9d7000',
+				'd47f1e' => 'aa5a00',
+				'b56414' => '8d4500',
+				'914d14' => '743500',
 
-									'ab2671' => '870b50',
-									'9643a5' => '70237f',
-									'4585a3' => '25617d',
-									'737373' => '515151',
-									'41a587' => '227f63',
-									'd1bc36' => 'a59114',
-									'ad2d2d' => '871111' ) );
+				'ab2671' => '870b50',
+				'9643a5' => '70237f',
+				'4585a3' => '25617d',
+				'737373' => '515151',
+				'41a587' => '227f63',
+				'd1bc36' => 'a59114',
+				'ad2d2d' => '871111',
+			) );
 		}
 
 		/**
@@ -240,9 +244,9 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 		function rgbToHex( $r = 0, $g = 0, $b = 0 ) {
 
 			//String padding bug found and the solution put forth by Pete Williams (http://snipplr.com/users/PeteW)
-			$hex = str_pad( dechex($r), 2, "0", STR_PAD_LEFT );
-			$hex .= str_pad( dechex($g), 2, "0", STR_PAD_LEFT );
-			$hex .= str_pad( dechex($b), 2, "0", STR_PAD_LEFT );
+			$hex = str_pad( dechex( $r ), 2, "0", STR_PAD_LEFT );
+			$hex .= str_pad( dechex( $g ), 2, "0", STR_PAD_LEFT );
+			$hex .= str_pad( dechex( $b ), 2, "0", STR_PAD_LEFT );
 
 			return $hex;
 
@@ -253,7 +257,7 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 		 *
 		 * @since 0.3
 		 */
-		function modify_calendar_tax_displays(){
+		function modify_calendar_tax_displays() {
 
 			global $ft_cal_options;
 
@@ -270,8 +274,10 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 		 * Query database for post IDs matching the start date, end date, and calendar params
 		 *
 		 * @since 0.3
+		 *
 		 * @param string $start_date SQL format
 		 * @param string $end_Date SQL format
+		 *
 		 * @returns obj
 		 */
 		function get_ftcal_data_ids( $start_date, $end_date, $calendar = 'all' ) {
@@ -279,20 +285,20 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 			global $wpdb;
 			global $ft_cal_options;
 
-			$start_date .= " 00:00:00";	// add Midnight in start date
-			$end_date .= " 23:59:59";	// add 1 second before the next day in end date
+			$start_date .= " 00:00:00";    // add Midnight in start date
+			$end_date .= " 23:59:59";    // add 1 second before the next day in end date
 
-			$select = 	"SELECT ftc.* FROM " . $wpdb->prefix . "ftcalendar_events as ftc ";
-			$join =		"JOIN " . $wpdb->posts . " as posts on posts.ID = ftc.post_parent ";
-			$where =	"WHERE ( " .
-						"( ( ftc.start_datetime >= '$start_date' || ftc.end_datetime >= '$start_date' ) " .
-						"    && ( ftc.start_datetime <= '$end_date' || ftc.end_datetime <= '$end_date' ) ) " .
-						"  || ( ftc.repeating = 1 " .
-						"       && ( ftc.r_start_datetime >= '$start_date' " .
-						"            || ( ftc.r_end = 0 || ( ftc.r_end = 1 && ftc.r_end_datetime >= '$start_date' ) ) ) " .
-						"       && ( ftc.r_start_datetime <= '$end_date' " .
-						"            || ( ftc.r_end = 0 || ( ftc.r_end = 1 && ftc.r_end_datetime <= '$end_date' ) ) ) ) ) " .
-						" && posts.post_status = 'publish' ";
+			$select = "SELECT ftc.* FROM " . $wpdb->prefix . "ftcalendar_events as ftc ";
+			$join   = "JOIN " . $wpdb->posts . " as posts on posts.ID = ftc.post_parent ";
+			$where  = "WHERE ( " .
+			          "( ( ftc.start_datetime >= '$start_date' || ftc.end_datetime >= '$start_date' ) " .
+			          "    && ( ftc.start_datetime <= '$end_date' || ftc.end_datetime <= '$end_date' ) ) " .
+			          "  || ( ftc.repeating = 1 " .
+			          "       && ( ftc.r_start_datetime >= '$start_date' " .
+			          "            || ( ftc.r_end = 0 || ( ftc.r_end = 1 && ftc.r_end_datetime >= '$start_date' ) ) ) " .
+			          "       && ( ftc.r_start_datetime <= '$end_date' " .
+			          "            || ( ftc.r_end = 0 || ( ftc.r_end = 1 && ftc.r_end_datetime <= '$end_date' ) ) ) ) ) " .
+			          " && posts.post_status = 'publish' ";
 
 			// If 'all' was checked, we don't care about other options.
 			$slugs = explode( ',', $calendar );
@@ -302,13 +308,13 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 
 			if ( 'all' != $calendar ) {
 				$where .= " && ( ";
-				$calendars = preg_split("/\s?,\s?/", $calendar);
+				$calendars = preg_split( "/\s?,\s?/", $calendar );
 
-				$i = 0;
-				$last = count($calendars) - 1;
-				foreach ( (array)$calendars as $calendar ) {
+				$i    = 0;
+				$last = count( $calendars ) - 1;
+				foreach ( (array) $calendars as $calendar ) {
 					$term = get_term_by( 'slug', $calendar, 'ftcalendar' );
-					if ( !empty( $term ) ) {
+					if ( ! empty( $term ) ) {
 						$where .= " calendar_id = " . $term->term_id . " ";
 
 						if ( $last > $i ) {
@@ -318,17 +324,17 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 						$where .= " 0 ";
 					}
 
-					$i++;
+					$i ++;
 				}
 				$where .= " ) ";
 			}
 
 			$orderby = " ORDER BY all_day DESC, start_datetime ASC";
 
-			$select		= apply_filters( 'ftc_select', $select );
-			$join 		= apply_filters( 'ftc_join', $join );
-			$where 		= apply_filters( 'ftc_where', $where, $start_date, $end_date, $calendar );
-			$orderby	= apply_filters( 'ftc_orderby',	$orderby );
+			$select  = apply_filters( 'ftc_select', $select );
+			$join    = apply_filters( 'ftc_join', $join );
+			$where   = apply_filters( 'ftc_where', $where, $start_date, $end_date, $calendar );
+			$orderby = apply_filters( 'ftc_orderby', $orderby );
 
 			$sql = $select . $join . $where . $orderby;
 
@@ -347,8 +353,9 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 
 			global $current_screen;
 
-			if ( 'ftcalendar' == $current_screen->taxonomy )
+			if ( 'ftcalendar' == $current_screen->taxonomy ) {
 				wp_enqueue_style( 'add-edit-taxonomy', FT_CAL_URL . '/includes/css/add-edit-taxonomy.css' );
+			}
 
 		}
 
@@ -361,8 +368,9 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 
 			global $current_screen;
 
-			if ( 'ftcalendar' == $current_screen->taxonomy )
+			if ( 'ftcalendar' == $current_screen->taxonomy ) {
 				wp_enqueue_script( 'add-edit-taxonomy', FT_CAL_URL . '/includes/js/add-edit-taxonomy.js' );
+			}
 
 		}
 
@@ -375,8 +383,9 @@ if ( !class_exists( 'FT_Cal_Calendars' ) ) {
 
 			if ( 'ftcalendar' == $taxonomy ) {
 
-				if ( 0 == strcasecmp( 'all', $term ) )
+				if ( 0 == strcasecmp( 'all', $term ) ) {
 					return new WP_Error( 'reserved_term_all', printf( __( '"%s" is a reserved term in FT Calendar' ), $term ) );
+				}
 
 			}
 
