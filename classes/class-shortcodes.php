@@ -3,6 +3,7 @@
  * @package FT_Calendar
  * @since 0.3
  */
+
 if ( ! class_exists( 'FT_CAL_ShortCodes' ) ) {
 
 	/**
