@@ -26,10 +26,10 @@ if ( ! class_exists( 'FT_CAL_Feeds' ) ) {
 		 */
 		function __construct() {
 
-			add_action( 'init', 		array( &$this, 'add_ical_feed' ), 1 );
-			add_action( 'do_feed_rdf', 	array( &$this, 'do_feed_rdf' ), 1, 1 );
+			add_action( 'init', array( &$this, 'add_ical_feed' ), 1 );
+			add_action( 'do_feed_rdf', array( &$this, 'do_feed_rdf' ), 1, 1 );
 			add_action( 'do_feed_atom', array( &$this, 'do_feed_atom' ), 1, 1 );
-			add_action( 'do_feed_rss', 	array( &$this, 'do_feed_rss' ), 1, 1 );
+			add_action( 'do_feed_rss', array( &$this, 'do_feed_rss' ), 1, 1 );
 			add_action( 'do_feed_rss2', array( &$this, 'do_feed_rss2' ), 1, 1 );
 			add_action( 'do_feed_ical', array( &$this, 'do_feed_ical' ), 1, 1 );
 
@@ -78,8 +78,9 @@ if ( ! class_exists( 'FT_CAL_Feeds' ) ) {
 		 */
 		function do_feed_rss2( $for_comments ) {
 
-			if ( $for_comments )
+			if ( $for_comments ) {
 				return;
+			}
 
 			if ( $calendar = get_query_var( 'ftcalendar' ) ) {
 
@@ -100,8 +101,9 @@ if ( ! class_exists( 'FT_CAL_Feeds' ) ) {
 		 */
 		function do_feed_atom( $for_comments ) {
 
-			if ( $for_comments )
+			if ( $for_comments ) {
 				return;
+			}
 
 			if ( $calendar = get_query_var( 'ftcalendar' ) ) {
 
@@ -123,8 +125,9 @@ if ( ! class_exists( 'FT_CAL_Feeds' ) ) {
 
 			global $wp_rewrite;
 
-			if ( ( $wp_rewrite->using_permalinks() && $calendar = get_query_var( 'ftcalendar' ) )  ||
-					( isset( $_GET['ftcalendar'] ) && $calendar = $_GET['ftcalendar'] ) ) {
+			if ( ( $wp_rewrite->using_permalinks() && $calendar = get_query_var( 'ftcalendar' ) ) ||
+			     ( isset( $_GET['ftcalendar'] ) && $calendar = $_GET['ftcalendar'] )
+			) {
 
 				load_template( FT_CAL_PATH . '/includes/feed-ical.php' );
 
@@ -157,22 +160,26 @@ if ( ! class_exists( 'FT_CAL_Feeds' ) ) {
 			$title = " ";
 
 			$defaults = array(
-				'type'			=> 'month',
-				'calendars'		=> 'all',
-				'span'			=> '+1 Month'
+				'type'      => 'month',
+				'calendars' => 'all',
+				'span'      => '+1 Month',
 			);
 
-			if ( isset( $_GET['type'] ) )
+			if ( isset( $_GET['type'] ) ) {
 				$atts['type'] = $_GET['type'];
+			}
 
-			if ( isset( $_GET['span'] ) )
+			if ( isset( $_GET['span'] ) ) {
 				$atts['span'] = $_GET['span'];
+			}
 
-			if ( $cal = get_query_var( 'ftcalendar' ) )
+			if ( $cal = get_query_var( 'ftcalendar' ) ) {
 				$atts['calendars'] = $cal;
+			}
 
-			if ( 'ical' == get_query_var( 'feed' ) )
+			if ( 'ical' == get_query_var( 'feed' ) ) {
 				$atts['type'] = 'ical';
+			}
 
 			// Merge defaults with passed atts
 			// Extract (make each array element its own PHP var
@@ -181,55 +188,55 @@ if ( ! class_exists( 'FT_CAL_Feeds' ) ) {
 			extract( $args );
 
 			$cur_date = getdate( current_time( 'timestamp' ) );
-			$date = $cur_date['year'] . "-" . $cur_date['mon'] . "-" . $cur_date['mday'];
+			$date     = $cur_date['year'] . "-" . $cur_date['mon'] . "-" . $cur_date['mday'];
 
-			switch( $type ) {
+			switch ( $type ) {
 
 				case 'daily' :
-					$str_start_date = strtotime( date_i18n( 'Y-m-d',  strtotime( $date ) ) );
-					$start_date		= date_i18n( 'Y-m-d', $str_start_date );
-					$end_date		= $start_date;
+					$str_start_date = strtotime( date_i18n( 'Y-m-d', strtotime( $date ) ) );
+					$start_date     = date_i18n( 'Y-m-d', $str_start_date );
+					$end_date       = $start_date;
 
-					$cal_data_arr 	= $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
-					$title 			.= __( '(today)', 'ftcalendar' );
+					$cal_data_arr = $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
+					$title .= __( '(today)', 'ftcalendar' );
 					break;
 
 				case 'weekly' :
-					$str_date		= strtotime( $date );
-					$wday 			= date_i18n( 'w', $str_date );
+					$str_date       = strtotime( $date );
+					$wday           = date_i18n( 'w', $str_date );
 					$str_start_date = strtotime( "-" . $wday . " Day", $str_date );
-					$start_date		= date_i18n( 'Y-m-d', $str_start_date );
-					$str_end_date 	= strtotime( date_i18n( 'Y-m-d', strtotime( "+7 Days", $str_start_date ) ) ) - 1;
-					$end_date		= date_i18n( 'Y-m-d', $str_end_date );
+					$start_date     = date_i18n( 'Y-m-d', $str_start_date );
+					$str_end_date   = strtotime( date_i18n( 'Y-m-d', strtotime( "+7 Days", $str_start_date ) ) ) - 1;
+					$end_date       = date_i18n( 'Y-m-d', $str_end_date );
 
-					$cal_data_arr 	= $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
-					$title 			.= __( '(this week)', 'ftcalendar' );
+					$cal_data_arr = $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
+					$title .= __( '(this week)', 'ftcalendar' );
 					break;
 
 				case 'upcoming' :
-					$start_date	= date_i18n( 'Y-m-d' );
-					$end_date 	= date_i18n( 'Y-m-d', strtotime( rawurldecode( $span ) ) );
+					$start_date = date_i18n( 'Y-m-d' );
+					$end_date   = date_i18n( 'Y-m-d', strtotime( rawurldecode( $span ) ) );
 
-					$cal_data_arr 	= $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
-					$title 			.= __( '(upcoming)', 'ftcalendar' );
+					$cal_data_arr = $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
+					$title .= __( '(upcoming)', 'ftcalendar' );
 					break;
 
 				case 'ical' :
-					$start_date	= date_i18n( 'Y-m-d' );
-					$end_date 	= date_i18n( 'Y-m-d', strtotime( "+1 Year" ) );
+					$start_date = date_i18n( 'Y-m-d' );
+					$end_date   = date_i18n( 'Y-m-d', strtotime( "+1 Year" ) );
 
-					$cal_data_arr 	= $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
-					$title 			= __( 'ical', 'ftcalendar' );
+					$cal_data_arr = $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
+					$title        = __( 'ical', 'ftcalendar' );
 					break;
 
 				default : //monthly
-					$str_date		= strtotime( date_i18n( 'Y-m-01', strtotime( $date ) ) );
-					$start_date		= date_i18n( 'Y-m-d', $str_date );
-					$str_last_day	= strtotime( "+1 Month", $str_date ) - 1;
-					$end_date		= date_i18n( 'Y-m-d', $str_last_day  );
+					$str_date     = strtotime( date_i18n( 'Y-m-01', strtotime( $date ) ) );
+					$start_date   = date_i18n( 'Y-m-d', $str_date );
+					$str_last_day = strtotime( "+1 Month", $str_date ) - 1;
+					$end_date     = date_i18n( 'Y-m-d', $str_last_day );
 
-					$cal_data_arr 	= $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
-					$title 			.= __( '(this month)', 'ftcalendar' );
+					$cal_data_arr = $ft_cal_calendars->get_ftcal_data_ids( $start_date, $end_date, $calendars );
+					$title .= __( '(this month)', 'ftcalendar' );
 					break;
 
 			}
@@ -265,34 +272,32 @@ if ( ! class_exists( 'FT_CAL_Feeds' ) ) {
 		 *
 		 */
 		function the_category_rss( $type = null, $calendar_id ) {
-			if ( empty($type) )
+			if ( empty( $type ) ) {
 				$type = get_default_feed();
+			}
 			$calendar = get_term( $calendar_id, 'ftcalendar' );
-			$output = '';
+			$output   = '';
 
 			$filter = 'rss';
-			if ( 'atom' == $type )
+			if ( 'atom' == $type ) {
 				$filter = 'raw';
+			}
 
-			if ( !empty( $calendar ) ) {
+			if ( ! empty( $calendar ) ) {
 
 				$calendar_name = sanitize_term_field( 'name', $calendar->name, $calendar->term_id, 'ftcalendar', $filter );
 
-				if ( 'rdf' == $type )
-
+				if ( 'rdf' == $type ) {
 					$output = "\t\t<dc:subject><![CDATA[$calendar_name]]></dc:subject>\n";
-
-				elseif ( 'atom' == $type )
-
+				} elseif ( 'atom' == $type ) {
 					$output = sprintf( '<category scheme="%1$s" term="%2$s" />', esc_attr( apply_filters( 'get_bloginfo_rss', get_bloginfo( 'url' ) ) ), esc_attr( $calendar_name ) );
-
-				else
-
-					$output = "\t\t<category><![CDATA[" . @html_entity_decode( $calendar_name, ENT_COMPAT, get_option('blog_charset') ) . "]]></category>\n";
+				} else {
+					$output = "\t\t<category><![CDATA[" . @html_entity_decode( $calendar_name, ENT_COMPAT, get_option( 'blog_charset' ) ) . "]]></category>\n";
+				}
 
 			}
 
-			echo apply_filters('the_category_rss', $output, $type);
+			echo apply_filters( 'the_category_rss', $output, $type );
 		}
 
 		/**
@@ -305,42 +310,46 @@ if ( ! class_exists( 'FT_CAL_Feeds' ) ) {
 
 			global $post, $ft_cal_events;
 
-			if ( is_null( $post_id ) )
+			if ( is_null( $post_id ) ) {
 				$post_id = $post->ID;
+			}
 
-			$dateformat = get_option('date_format');
-			$timeformat = get_option('time_format');
+			$dateformat = get_option( 'date_format' );
+			$timeformat = get_option( 'time_format' );
 
 			$output = '';
 
 			if ( isset( $post_id ) && $ftcal_data = $ft_cal_events->get_ftcal_data( $post_id ) ) {
 
-				foreach ( (array)$ftcal_data as $entry ) {
+				foreach ( (array) $ftcal_data as $entry ) {
 
-					$start_date = date_i18n( $dateformat, strtotime( $entry->start_datetime ));
-					$end_date = date_i18n( $dateformat, strtotime( $entry->end_datetime ));
+					$start_date = date_i18n( $dateformat, strtotime( $entry->start_datetime ) );
+					$end_date   = date_i18n( $dateformat, strtotime( $entry->end_datetime ) );
 
 					if ( $entry->all_day ) {
 
-						if ( $start_date == $end_date )
+						if ( $start_date == $end_date ) {
 							$output .= $start_date;
-						else
+						} else {
 							$output .= $start_date . " " . __( "to" ) . " " . $end_date;
+						}
 
 					} else {
 
 						$start_time = date_i18n( $timeformat, strtotime( $entry->start_datetime ) );
-						$end_time = date_i18n( $timeformat, strtotime( $entry->end_datetime ) );
+						$end_time   = date_i18n( $timeformat, strtotime( $entry->end_datetime ) );
 
-						if ( $start_date == $end_date )
+						if ( $start_date == $end_date ) {
 							$output .= $start_date . " - " . $start_time . " " . __( "to" ) . " " . $end_time;
-						else
+						} else {
 							$output .= $start_date . " - " . $start_time . " " . __( "to" ) . " " . $end_date . " " . $end_time;
+						}
 
 					}
 
-					if ( $entry->repeating )
-						$output .= "&nbsp;( " . __ ( "Repeating" ) . " " . $entry->r_label . " )";
+					if ( $entry->repeating ) {
+						$output .= "&nbsp;( " . __( "Repeating" ) . " " . $entry->r_label . " )";
+					}
 
 					$output .= "<br />\n";
 
