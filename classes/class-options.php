@@ -17,56 +17,56 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 		 *
 		 * @since 0.3
 		 */
-		var $calendar_options 		= array();
+		var $calendar_options = array();
 
 		/**
 		 * An array of additional options added by other plugins or developers
 		 *
 		 * @since 0.3
 		 */
-		var $additional_options		= array();
+		var $additional_options = array();
 
 		/**
 		 * An array of post types that the calendar is allowed to be attached to
 		 *
 		 * @since 0.3
 		 */
-		var $post_types				= array();
+		var $post_types = array();
 
 		/**
 		 * Boolean to show support link on calendar
 		 *
 		 * @since 0.3.2
 		 */
-		var $show_support			= false;
+		var $show_support = false;
 
 		/**
 		 * Boolean to enable SMART ordering for queries
 		 *
 		 * @since 1.1.7
 		 */
-		var $smart_ordering			= true;
+		var $smart_ordering = true;
 
 		/**
 		 * Boolean to include Recurring End dates in SMART ordering for queries
 		 *
 		 * @since 1.1.7
 		 */
-		var $include_recurring_end	= false;
+		var $include_recurring_end = false;
 
 		/**
 		 * Boolean to include event Schedule in the Post
 		 *
 		 * @since 1.1.8
 		 */
-		var $show_post_schedule	= false;
+		var $show_post_schedule = false;
 
 		/**
 		 * String to tell where the schedule should be displayed within the post content
 		 *
 		 * @since 1.1.8
 		 */
-		var $before_after	= 'before';
+		var $before_after = 'before';
 
 		/**
 		 * PHP Constructor
@@ -84,7 +84,7 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 		 *
 		 * @since 1.1.11
 		 */
-		var $use_event_date_as_pubdate	= false;
+		var $use_event_date_as_pubdate = false;
 
 		/**
 		 * Set default options
@@ -97,10 +97,10 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 		 *
 		 * @since 0.3
 		 */
-		function set_options(){
+		function set_options() {
 
-			$current 	= $this->get_calendar_options();
-			$defaults	= $this->get_default_options();
+			$current  = $this->get_calendar_options();
+			$defaults = $this->get_default_options();
 
 			// Merge existing options with default options, giving existing options preference.
 			$options = $this->parse_option_args( $current, $defaults );
@@ -108,9 +108,9 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 			// Update options and set properties
 			update_option( 'ft_calendar_options', $options );
 
-			$this->options 				= $options;
-			$this->calendar_options 	= $options['calendar'];
-			$this->additional_options	= $options['additional'];
+			$this->options            = $options;
+			$this->calendar_options   = $options['calendar'];
+			$this->additional_options = $options['additional'];
 
 		}
 
@@ -125,7 +125,7 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 		 *
 		 * @since 0.3.2
 		 */
-		function get_calendar_options(){
+		function get_calendar_options() {
 
 			return get_option( 'ft_calendar_options' );
 
@@ -136,22 +136,22 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 		 *
 		 * @since 0.3
 		 */
-		function get_default_options(){
+		function get_default_options() {
 
 			// The following is an array of all options organized by group, name, default value
 			// Calendar Options
 			$calendar_options = array(
-				'who_manages_calendars'			=> array( 'administrator' ),
-				'who_populates_calendars'		=> array( 'administrator', 'editor', 'author', 'contributor' ),
-				'attach_events_to_post_types'	=> array( 'post' ),
-				'calendar_label_singular'		=> __( 'Calendar' ),
-				'calendar_label_plural'			=> __( 'Calendars' ),
-				'show_support'					=> false,
-				'smart_ordering'				=> true,
-				'include_recurring_end'			=> false,
-				'show_post_schedule'			=> false,
-				'before_after'					=> 'before',
-				'use_event_date_as_pubdate'		=> false
+				'who_manages_calendars'       => array( 'administrator' ),
+				'who_populates_calendars'     => array( 'administrator', 'editor', 'author', 'contributor' ),
+				'attach_events_to_post_types' => array( 'post' ),
+				'calendar_label_singular'     => __( 'Calendar' ),
+				'calendar_label_plural'       => __( 'Calendars' ),
+				'show_support'                => false,
+				'smart_ordering'              => true,
+				'include_recurring_end'       => false,
+				'show_post_schedule'          => false,
+				'before_after'                => 'before',
+				'use_event_date_as_pubdate'   => false,
 			);
 			$calendar_options = apply_filters( 'ft_cal_calendar_default_options', $calendar_options );
 
@@ -160,8 +160,8 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 
 			// Options Array
 			$options = array(
-				'calendar' 		=> $calendar_options,
-				'additional'	=> $additional_options
+				'calendar'   => $calendar_options,
+				'additional' => $additional_options,
 			);
 
 			return apply_filters( 'ft_cal_default_options', $options );
@@ -176,19 +176,21 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 		function parse_option_args( $new, $old ) {
 
 			// parse dimentional options
-			if ( isset( $new['calendar'] ) && isset( $old['calendar'] ) )
-				$options['calendar'] 	= wp_parse_args( $new['calendar'], $old['calendar'] );
-			elseif ( isset( $new['calendar'] ) && !isset( $old['calendar'] ) )
-				$options['calendar']	= $new['calendar'];
-			elseif ( !isset( $new['calendar'] ) && isset( $old['calendar'] ) )
-				$options['calendar']	= $old['calendar'];
+			if ( isset( $new['calendar'] ) && isset( $old['calendar'] ) ) {
+				$options['calendar'] = wp_parse_args( $new['calendar'], $old['calendar'] );
+			} elseif ( isset( $new['calendar'] ) && ! isset( $old['calendar'] ) ) {
+				$options['calendar'] = $new['calendar'];
+			} elseif ( ! isset( $new['calendar'] ) && isset( $old['calendar'] ) ) {
+				$options['calendar'] = $old['calendar'];
+			}
 
-			if ( isset( $new['additional'] ) && isset( $old['additional'] ) )
-				$options['additional'] 	= wp_parse_args( $new['additional'], $old['additional'] );
-			elseif ( isset( $new['additional'] ) && !isset( $old['additional'] ) )
-				$options['additional']	= $new['additional'];
-			elseif ( !isset( $new['additional'] ) && isset( $old['additional'] ) )
-				$options['additional']	= $old['additional'];
+			if ( isset( $new['additional'] ) && isset( $old['additional'] ) ) {
+				$options['additional'] = wp_parse_args( $new['additional'], $old['additional'] );
+			} elseif ( isset( $new['additional'] ) && ! isset( $old['additional'] ) ) {
+				$options['additional'] = $new['additional'];
+			} elseif ( ! isset( $new['additional'] ) && isset( $old['additional'] ) ) {
+				$options['additional'] = $old['additional'];
+			}
 
 			return $options;
 
@@ -226,7 +228,7 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 				UNIQUE KEY id (id)
 				);";
 
-			require_once( ABSPATH . 'wp-admin/includes/upgrade.php');
+			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sql );
 
 			update_option( 'ft_cal_db_version', FT_CAL_DB_VERSION );
@@ -264,7 +266,7 @@ if ( ! class_exists( 'FT_CAL_Options' ) ) {
 		 */
 		function upgrade_to_1_3_0() {
 			$options = $this->get_calendar_options();
-			if ( !empty( $options ) && !empty( $options['calendar'] ) ) {
+			if ( ! empty( $options ) && ! empty( $options['calendar'] ) ) {
 				$options['calendar']['show_support'] = false;
 				update_option( 'ft_calendar_options', $options );
 			}
